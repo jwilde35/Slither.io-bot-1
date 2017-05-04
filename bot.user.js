@@ -10,7 +10,8 @@ The MIT License (MIT)
 // @namespace    https://github.com/xanderak/Slither.io-bot
 // @version      0.1
 // @description  Slither.io Bot Championship Edition2
-// @author       Jesse Miller / xanderak
+// @author       Jesse Miller
+// @contributor  Terry Raymond (https://github.com/xanderak)
 // @match        http://slither.io/
 // @updateURL    https://github.com/xanderak/Slither.io-bot/raw/master/bot.user.js
 // @downloadURL  https://github.com/xanderak/Slither.io-bot/raw/master/bot.user.js
