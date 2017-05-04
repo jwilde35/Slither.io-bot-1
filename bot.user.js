@@ -4,6 +4,7 @@ The MIT License (MIT)
  Copyright (c) 2016 Alexey Korepanov <kaikaikai@yandex.ru>
  Copyright (c) 2016 Ermiya Eskandary & Théophile Cailliau and other contributors
  https://jmiller.mit-license.org/
+ 
 */
 // ==UserScript==
 // @name         Slither.io Bot Championship Edition
