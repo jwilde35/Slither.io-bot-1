@@ -4,18 +4,17 @@ The MIT License (MIT)
  Copyright (c) 2016 Alexey Korepanov <kaikaikai@yandex.ru>
  Copyright (c) 2016 Ermiya Eskandary & Théophile Cailliau and other contributors
  https://jmiller.mit-license.org/
- 
 */
 // ==UserScript==
 // @name         Slither.io Bot Championship Edition
-// @namespace    https://github.com/j-c-m/Slither.io-bot
-// @version      3.0.5
+// @namespace    https://github.com/xanderak/Slither.io-bot
+// @version      0.1
 // @description  Slither.io Bot Championship Edition
 // @author       Jesse Miller
 // @match        http://slither.io/
-// @updateURL    https://github.com/j-c-m/Slither.io-bot/raw/master/bot.user.js
-// @downloadURL  https://github.com/j-c-m/Slither.io-bot/raw/master/bot.user.js
-// @supportURL   https://github.com/j-c-m/Slither.io-bot/issues
+// @updateURL    https://github.com/xanderak/Slither.io-bot/raw/master/bot.user.js
+// @downloadURL  https://github.com/xanderak/Slither.io-bot/raw/master/bot.user.js
+// @supportURL   https://github.com/xanderak/Slither.io-bot/issues
 // @grant        none
 // ==/UserScript==
 
@@ -244,7 +243,7 @@ var canvas = window.canvas = (function (window) {
         },
 
         getDistance2FromSnake: function (point) {
-            point.distance = canvas.getDistance2(window.snake.xx, window.snake.yy,
+            point.distance2 = canvas.getDistance2(window.snake.xx, window.snake.yy,
                 point.xx, point.yy);
             return point;
         },
@@ -630,16 +629,12 @@ var bot = window.bot = (function (window) {
 
         // Add to collisionAngles if distance is closer
         addCollisionAngle: function (sp) {
-            var ang = canvas.fastAtan2(
-                Math.round(sp.yy - window.snake.yy),
-                Math.round(sp.xx - window.snake.xx));
+            var ang = canvas.fastAtan2(Math.round(sp.yy - window.snake.yy), Math.round(sp.xx - window.snake.xx));
             var aIndex = bot.getAngleIndex(ang);
 
-            var actualDistance = Math.round(Math.pow(
-                Math.sqrt(sp.distance) - sp.radius, 2));
+            var actualDistance = Math.round(Math.pow(Math.sqrt(sp.distance) - sp.radius, 2));
 
-            if (bot.collisionAngles[aIndex] === undefined ||
-                 bot.collisionAngles[aIndex].distance > sp.distance) {
+            if (bot.collisionAngles[aIndex] === undefined || bot.collisionAngles[aIndex].distance > actualDistance) {
                 bot.collisionAngles[aIndex] = {
                     x: Math.round(sp.xx),
                     y: Math.round(sp.yy),
@@ -663,25 +658,24 @@ var bot = window.bot = (function (window) {
             canvas.getDistance2FromSnake(f);
 
             if (bot.collisionAngles[aIndex] === undefined ||
-                Math.sqrt(bot.collisionAngles[aIndex].distance) >
-                Math.sqrt(f.distance) + bot.snakeRadius * bot.opt.radiusMult * bot.speedMult / 2) {
+                Math.sqrt(bot.collisionAngles[aIndex].distance) >  Math.sqrt(f.distance2) + bot.snakeRadius * bot.opt.radiusMult * bot.speedMult / 2) {
                 if (bot.foodAngles[aIndex] === undefined) {
                     bot.foodAngles[aIndex] = {
                         x: Math.round(f.xx),
                         y: Math.round(f.yy),
                         ang: ang,
                         da: Math.abs(bot.angleBetween(ang, window.snake.ehang)),
-                        distance: f.distance,
+                        distance2: f.distance2,
                         sz: f.sz,
                         score: Math.pow(f.sz, 2) / f.distance
                     };
                 } else {
                     bot.foodAngles[aIndex].sz += Math.round(f.sz);
                     bot.foodAngles[aIndex].score += Math.pow(f.sz, 2) / f.distance;
-                    if (bot.foodAngles[aIndex].distance > f.distance) {
+                    if (bot.foodAngles[aIndex].distance2 > f.distance2) {
                         bot.foodAngles[aIndex].x = Math.round(f.xx);
                         bot.foodAngles[aIndex].y = Math.round(f.yy);
-                        bot.foodAngles[aIndex].distance = f.distance;
+                        bot.foodAngles[aIndex].distance2 = f.distance2;
                     }
                 }
             }
@@ -753,9 +747,7 @@ var bot = window.bot = (function (window) {
                             canvas.getDistance2FromSnake(collisionPoint);
                             bot.addCollisionAngle(collisionPoint);
 
-                            if (collisionPoint.distance <= Math.pow(
-                                (bot.headCircle.radius)
-                                + collisionPoint.radius, 2)) {
+                            if (collisionPoint.distance2 <= Math.pow((bot.headCircle.radius) + collisionPoint.radius, 2)) {
                                 bot.collisionPoints.push(collisionPoint);
                                 if (window.visualDebugging) {
                                     canvas.drawCircle(canvas.circle(
@@ -809,9 +801,7 @@ var bot = window.bot = (function (window) {
 
         // Is collisionPoint (xx) in frontAngle
         inFrontAngle: function (point) {
-            var ang = canvas.fastAtan2(
-                Math.round(point.y - window.snake.yy),
-                Math.round(point.x - window.snake.xx));
+            var ang = canvas.fastAtan2(Math.round(point.y - window.snake.yy), Math.round(point.x - window.snake.xx));
 
             if (Math.abs(bot.angleBetween(ang, window.snake.ehang)) < bot.opt.frontAngle) {
                 return true;
