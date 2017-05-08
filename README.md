@@ -7,7 +7,6 @@ I'm tinkering with this bot & learning a lot about math and algorithms.  Its sti
 ## Installation
 Note this is still in alpha!
 
-1. If you are on chrome, download the [TamperMonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en) extension.
-2. On other browsers, use the [GreaseMonkey](https://addons.mozilla.org/en-GB/firefox/addon/greasemonkey/) extension.
-3. Once installed, click on [this link](https://github.com/xanderak/slither.io-bot/raw/master/bot.user.js), and choose **Install**.
-4. Go to [slither.io](http://slither.io/), and enjoy !
+1. If you are on Chrome, download the [TamperMonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en) extension. Otherwise use the [GreaseMonkey](https://addons.mozilla.org/en-GB/firefox/addon/greasemonkey/) extension.
+2. Once installed, click on [this link](https://github.com/xanderak/slither.io-bot/raw/master/bot.user.js), and choose **Install**.
+3. Go to [slither.io](http://slither.io/), and enjoy !
