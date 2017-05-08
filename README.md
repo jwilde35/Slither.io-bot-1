@@ -1,6 +1,4 @@
-# Slither.io Bot Championship Edition2
-
-## Installation instructions
+# Slither.io Bot Gen3
 ---
 If you are on chrome, download the [TamperMonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en) extension.
 
